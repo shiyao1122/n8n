@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: n8n
+    env: docker
+    plan: starter  # 或 starter/standard，视需求升级
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: DB_TYPE
+        value: postgresdb
+      - key: DB_POSTGRESDB_HOST
+        fromDatabase:
+          name: dpg-d26p498gjchc73ead9b0-a
+          property: host
+      - key: DB_POSTGRESDB_PORT
+        value: "5432"
+      - key: DB_POSTGRESDB_DATABASE
+        fromDatabase:
+          name: n8n_db_gnvc
+          property: database
+      - key: DB_POSTGRESDB_USER
+        fromDatabase:
+          name: n8n_db_gnvc_user
+          property: user
+      - key: DB_POSTGRESDB_PASSWORD
+        fromDatabase:
+          name: i6D9SnaomUhTveasDGwYzPfqKT3Ya3NH
+          property: password
+      - key: N8N_BASIC_AUTH_ACTIVE
+        value: "true"
+      - key: N8N_BASIC_AUTH_USER
+        sync: shiyao@tenorshare.cn  # 填入用户名
+      - key: N8N_BASIC_AUTH_PASSWORD
+        sync: XWx2CHLW2525Q9G  # 填入密码
+      - key: N8N_HOST
+        value: shiyao-n8n.onrender.com
+      - key: N8N_PORT
+        value: "5678"
+      - key: N8N_PROTOCOL
+        value: https
+      - key: N8N_EDITOR_BASE_URL
+        value: https://shiyao-n8n.onrender.com/
+      - key: WEBHOOK_TUNNEL_URL
+        value: https://shiyao-n8n.onrender.com/
+
+databases:
+  - name: dpg-d26p498gjchc73ead9b0-a
+    databaseName: n8n_db_gnvc
+    user: n8n_db_gnvc_user
